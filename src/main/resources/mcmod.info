@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mobnames",
+  "name": "Mob Names",
+  "description": "Adds random names to mobs from a configurable list.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["blupilot"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
