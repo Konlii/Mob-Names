@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static blupilot.testmod.ConfigHandler.blacklistedEntities;
@@ -23,7 +24,9 @@ import static blupilot.testmod.ConfigHandler.names;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
-	public static Random rand = new Random();
+	private static Random rand = new Random();
+	private static List<String> blacklistModidList = Arrays.asList(blacklistedModids);
+	private static List<String> blacklistEntityList = Arrays.asList(blacklistedEntities);
 
 	// I'm leaving the init/register stuff here in case I wanna do something with them in the future or something
 	public void preInit(FMLPreInitializationEvent e) {
@@ -50,10 +53,10 @@ public class CommonProxy {
 			modid = entry.getRegistryName().getResourceDomain();
 			String entName = entity.getCustomNameTag();
 
-			// If the blacklistedModids array doesn't contain the modid or registryname of the mob,
+			// If the blacklists don't contain the modid or registryname of the mob,
 			// and if the mob has a null or empty name, assign a random name from the list
-			if (!Arrays.asList(blacklistedModids).contains(modid) && !Arrays.asList(blacklistedEntities).contains(entry.getRegistryName().toString())) {
-				if (entName == null || entName == "") {
+			if (!blacklistModidList.contains(modid) && !blacklistEntityList.contains(entry.getRegistryName().toString())) {
+				if (entName.isEmpty()) {
 					entity.setCustomNameTag(names[rand.nextInt(names.length)]);
 				}
 			}
