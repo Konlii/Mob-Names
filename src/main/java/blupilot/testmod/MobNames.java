@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 public class MobNames {
 	public static final String MODID = "mobnames";
 	public static final String NAME = "Mob Names";
-	public static final String MODVERSION = "0.0.1";
+	public static final String MODVERSION = "0.0.3";
 
 	@SidedProxy(clientSide = "blupilot.testmod.proxy.ClientProxy", serverSide = "blupilot.testmod.proxy.ClientProxy")
 	public static CommonProxy proxy;
