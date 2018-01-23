@@ -10,6 +10,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = MobNames.MODID)
 public class ConfigHandler {
 
+	@Config.Comment({"A list of mobs to block from spawning with names (for example 'minecraft:slime' to blacklist all slimes)"})
+	public static String[] blacklistedEntities = new String[] {};
+
 	@Config.Comment({"A list of mod ids to block certain mobs from spawning with names (for example 'minecraft' to blacklist vanilla mobs)"})
 	public static String[] blacklistedModids = new String[] {};
 

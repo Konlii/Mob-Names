@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import java.util.Arrays;
 import java.util.Random;
 
+import static blupilot.testmod.ConfigHandler.blacklistedEntities;
 import static blupilot.testmod.ConfigHandler.blacklistedModids;
 import static blupilot.testmod.ConfigHandler.names;
 
@@ -49,9 +50,9 @@ public class CommonProxy {
 			modid = entry.getRegistryName().getResourceDomain();
 			String entName = entity.getCustomNameTag();
 
-			// If the blacklistedModids array doesn't contain the modid of the mob,
+			// If the blacklistedModids array doesn't contain the modid or registryname of the mob,
 			// and if the mob has a null or empty name, assign a random name from the list
-			if (!Arrays.asList(blacklistedModids).contains(modid)) {
+			if (!Arrays.asList(blacklistedModids).contains(modid) && !Arrays.asList(blacklistedEntities).contains(entry.getRegistryName().toString())) {
 				if (entName == null || entName == "") {
 					entity.setCustomNameTag(names[rand.nextInt(names.length)]);
 				}
