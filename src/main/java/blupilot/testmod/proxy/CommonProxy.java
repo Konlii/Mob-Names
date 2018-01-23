@@ -56,7 +56,7 @@ public class CommonProxy {
 			// If the blacklists don't contain the modid or registryname of the mob,
 			// and if the mob has a null or empty name, assign a random name from the list
 			if (!blacklistModidList.contains(modid) && !blacklistEntityList.contains(entry.getRegistryName().toString())) {
-				if (entName == "") {
+				if (entName.isEmpty()) {
 					entity.setCustomNameTag(names[rand.nextInt(names.length)]);
 				}
 			}
