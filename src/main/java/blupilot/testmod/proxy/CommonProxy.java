@@ -2,6 +2,7 @@ package blupilot.testmod.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -21,6 +22,8 @@ import java.util.Random;
 import static blupilot.testmod.ConfigHandler.blacklistedEntities;
 import static blupilot.testmod.ConfigHandler.blacklistedModids;
 import static blupilot.testmod.ConfigHandler.names;
+import static blupilot.testmod.ConfigHandler.surnames;
+import static blupilot.testmod.ConfigHandler.useSurname;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
@@ -57,7 +60,20 @@ public class CommonProxy {
 			// and if the mob has a null or empty name, assign a random name from the list
 			if (!blacklistModidList.contains(modid) && !blacklistEntityList.contains(entry.getRegistryName().toString())) {
 				if (entName.isEmpty()) {
-					entity.setCustomNameTag(names[rand.nextInt(names.length)]);
+					String name = names[rand.nextInt(names.length)];
+					if (useSurname) {
+						List entities = event.getWorld().getEntitiesWithinAABB(entity.getClass(), entity.getEntityBoundingBox());
+						if (!entities.isEmpty()) {
+							String fullname = ((Entity) entities.get(0)).getCustomNameTag();
+							int index = fullname.lastIndexOf(' ');
+							String surname = fullname.substring(index+1);
+							entity.setCustomNameTag(name+" "+surname);
+						}
+						else
+							entity.setCustomNameTag(name+" "+surnames[rand.nextInt(surnames.length)]);
+					}
+					else
+						entity.setCustomNameTag(name);
 				}
 			}
 		}
